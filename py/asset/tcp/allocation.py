@@ -10,7 +10,7 @@ class Allocation(api.Allocation):
         self._assetKind = assetKind
         self._forceReleaseCallback = None
         self._heartbeat.register(id)
-        logging.info("allocation created")
+        logging.info("Asset allocation created (id: %(_id)s)", dict(_id=self._id))
 
     def assets(self):
         assert self._id is not None
