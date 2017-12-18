@@ -82,7 +82,7 @@ REQUIRED = required()
 DEPENDENCIES = dependencies()
 VERSION = version()
 PACKAGES = find_packages('py')  # , exclude=('test',))
-DATA_FILES = data_files()
+DATA_FILES = []  # data_files()
 
 
 setup(
