@@ -37,6 +37,7 @@ class HeartBeat(threading.Thread):
             logging.exception("Asset heartbeat thread dies")
             raise
         finally:
+            import logging
             if not self._stop.isSet():
                 logging.error("heartbeat thread notifies client about failure")
                 self._client.heartbeatFailed()
