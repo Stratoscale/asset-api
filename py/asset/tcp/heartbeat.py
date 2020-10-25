@@ -13,13 +13,13 @@ class HeartBeat(threading.Thread):
         self.daemon = True
         threading.Thread.start(self)
 
-    def register(self, id):
-        assert id not in self._ids
-        self._ids.append(id)
+    def register(self, id_param):
+        assert id_param not in self._ids
+        self._ids.append(id_param)
 
-    def unregister(self, id):
-        assert id in self._ids
-        self._ids.remove(id)
+    def unregister(self, id_param):
+        assert id_param in self._ids
+        self._ids.remove(id_param)
 
     def stop(self):
         self._stop.set()
