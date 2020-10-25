@@ -1,5 +1,5 @@
 import threading
-import logging
+import logging as logging2
 
 HEARTBEAT_OK = "OK"
 
@@ -31,14 +31,14 @@ class HeartBeat(threading.Thread):
                     continue
                 response = self._client.call('heartbeat', ids=self._ids)
                 if response != HEARTBEAT_OK:
-                    logging.error("Asset heartbeat failed: '%(message)s'", dict(message=response))
+                    logging2.error("Asset heartbeat failed: '%(message)s'", dict(message=response))
                     raise Exception("Asset heartbeat failed: '%s'" % response)
         except:
-            logging.exception("Asset heartbeat thread dies")
+            logging2.exception("Asset heartbeat thread dies")
             raise
         finally:
             if not self._stop.isSet():
-                logging.error("heartbeat thread notifies client about failure")
+                logging2.error("heartbeat thread notifies client about failure")
                 self._client.heartbeatFailed()
             else:
-                logging.info("closing heartbeat thread in an orderly fashion")
+                logging2.info("closing heartbeat thread in an orderly fashion")
