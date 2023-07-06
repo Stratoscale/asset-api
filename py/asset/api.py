@@ -35,7 +35,7 @@ class Client:
 
 
 class AllocationInfo:
-    def __init__(self, user, purpose, nice=0, comment=""):
+    def __init__(self, user, purpose, nice=0, comment="",servers=[], northboundIp=""):
         """
         This object represents what is this allocation for, by whom.
         This is important only for scheduling of shared resources
@@ -59,6 +59,8 @@ class AllocationInfo:
         self.purpose = purpose
         self.nice = nice
         self.comment = comment
+        self.servers = servers
+        self.northboundIp = northboundIp
 
 
 class Allocation:
