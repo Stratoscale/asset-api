@@ -27,7 +27,7 @@ class Allocation(api.Allocation):
     def free(self):
         assert self._id is not None
         logging.info("freeing allocation")
-        self._ipcClient.call('allocation__free', id=self._id)
+        self._ipcClient.call('allocation__free', ids=self._id)
         self._close()
 
     def assetKind(self):
