@@ -1,18 +1,5 @@
-import os
-import subprocess
-from setuptools import find_packages, setup
-
-
-def get_git_revision():
-    """Return the git revision."""
-    if os.path.exists('PKG-INFO'):
-        with open('PKG-INFO') as package_info:
-            for key, value in (line.split(':', 1) for line in package_info):
-                if key.startswith('Version'):
-                    return value.strip()
-
-    return subprocess.check_output(['git', 'rev-parse', 'HEAD']).strip()
-
+from setuptools import setup, find_packages
+from setuptools_plugins.version import get_version
 
 setup(
     name="asset_client",
@@ -24,6 +11,7 @@ setup(
     url="https://github.com/Stratoscale/asset-api",
     package_dir={"": "py"},
     packages=find_packages(where="py"),
-    version=get_git_revision(),
-    include_package_data=False
+    version=get_version(),
+    include_package_data=False,
 )
+
