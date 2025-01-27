@@ -1,0 +1,11 @@
+[tool.distutils.bdist_wheel]
+universal = true
+
+[build-system]
+requires = [
+  "setuptools",
+  "wheel",
+  "python-setuptools-plugins",
+  "setuptools-git-versioning",
+]
+build-backend = "setuptools.build_meta"
