@@ -17,14 +17,16 @@ class Client(api.Client):
         self._lock = threading.Lock()
         self._closed = False
         self._activeAllocations = []
+        VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH = zmq.backend.zmq_version_info()
+        ZMQ_VERSION = int(zmq.zmq_version().replace(".", "0"))
         self.call("handshake", versionInfo=dict(
             ASSET_VERSION=api.VERSION,
             ZERO_MQ=dict(
                 PYZMQ_VERSION=zmq.pyzmq_version(),
-                VERSION=zmq.VERSION,
-                VERSION_MAJOR=zmq.VERSION_MAJOR,
-                VERSION_MINOR=zmq.VERSION_MINOR,
-                VERSION_PATCH=zmq.VERSION_PATCH)))
+                VERSION=ZMQ_VERSION,
+                VERSION_MAJOR=VERSION_MAJOR,
+                VERSION_MINOR=VERSION_MINOR,
+                VERSION_PATCH=VERSION_PATCH)))
         self._connectionToProviderInterrupted = suicide.killSelf
         self._heartbeat = heartbeat.HeartBeat(self)
 
