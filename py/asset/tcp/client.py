@@ -8,7 +8,7 @@ from asset.tcp import config
 
 
 class Client(api.Client):
-    def __init__(self, providerLocation):
+    def __init__(self, providerLocation, document=None):
         self._providerLocation = providerLocation
         self._context = zmq.Context()
         self._socket = self._context.socket(zmq.REQ)
@@ -29,6 +29,15 @@ class Client(api.Client):
                 VERSION_PATCH=VERSION_PATCH)))
         self._connectionToProviderInterrupted = suicide.killSelf
         self._heartbeat = heartbeat.HeartBeat(self)
+        if document is not None:
+            self._heartbeat.register(id_param=document["allocation_id"])
+            allocation_instance = allocation.Allocation(
+                id=document["allocation_id"],
+                ipcClient=self,
+                heartbeat=self._heartbeat,
+                assetKind=document["asset_kind"]
+            )
+            self._activeAllocations.append(allocation_instance)
 
     def allocate(self, assetKind, assetCount=1, pool=None, continent=None, allocationInfo=None):
         assert assetCount > 0
